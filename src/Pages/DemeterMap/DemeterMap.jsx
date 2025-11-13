@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import '../../App.css';
 import './DemeterMap.css';
 import fincaImagenArriba from '../../Assets/Img/fincaImagenArriba.png';
 import Modal from 'react-modal';
 
 function DemeterDemo() {
+    const { t } = useTranslation();
     const [activeZone, setActiveZone] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [sensorModalIsOpen, setSensorModalIsOpen] = useState(false);
-    const [sensorBatteryLevel] = useState('75%'); // Nivel de batería del sensor
+    const [sensorBatteryLevel] = useState('75%');
 
     const zones = [
         {
@@ -310,69 +312,98 @@ function DemeterDemo() {
                     style={{ top: '20%', left: '30%' }} 
                     onClick={openSensorModal}
                 >
-                    Sensor
+                    {t('demeterMap.sensor', 'Sensor')}
                 </div>
                 <div
                     className="sensor"
                     style={{ top: '78%', left: '78%' }} 
                     onClick={openSensorModal}
                 >
-                    Sensor
+                    {t('demeterMap.sensor', 'Sensor')}
                 </div>
                 <div
                     className="sensor"
                     style={{ top: '80%', left: '20%' }} 
                     onClick={openSensorModal}
                 >
-                    Sensor
+                    {t('demeterMap.sensor', 'Sensor')}
                 </div>
             </div>
             <div className="zone-data-section">
                 {activeZone ? (
                     <div className="zone-data">
                         <h4>{activeZone.title}</h4>
-                        <p>Los indices ideales se adaptan según el tipo de plantación.</p>
+                        <p>{t('demeterMap.idealIndices')}</p>
                         <ul>
-                            {activeZone.indicators.map((item, index) => (
-                                <ul key={index} className='indicador-container'>
-                                    <li>
-                                        <strong>{item.split(':')[0]}:</strong></li>
-                                    <li>{item.split(':')[1]}</li>
-                                </ul>
-                            ))}
+                            {activeZone.indicators.map((item, index) => {
+                                const parts = item.split(':');
+                                const label = parts[0].trim();
+                                const value = parts.slice(1).join(':').trim();
+                                
+                                // Map Spanish labels to translation keys
+                                const labelMap = {
+                                    'Tipo de plantación': 'demeterMap.indicators.plantingType',
+                                    'Última fecha y hora de monitoreo': 'demeterMap.indicators.lastMonitoring',
+                                    'Última fecha y hora de riego': 'demeterMap.indicators.lastWatering',
+                                    'Temperatura encontrada': 'demeterMap.indicators.temperatureFound',
+                                    'Temperatura ideal': 'demeterMap.indicators.idealTemperature',
+                                    'Humedad': 'demeterMap.indicators.humidity',
+                                    'Humedad ideal': 'demeterMap.indicators.idealHumidity',
+                                    'Nitrógeno': 'demeterMap.indicators.nitrogen',
+                                    'Nitrógeno ideal': 'demeterMap.indicators.idealNitrogen',
+                                    'Fósforo': 'demeterMap.indicators.phosphorus',
+                                    'Fósforo ideal': 'demeterMap.indicators.idealPhosphorus',
+                                    'Potasio': 'demeterMap.indicators.potassium',
+                                    'Potasio ideal': 'demeterMap.indicators.idealPotassium',
+                                    'Sospecha de enfermedad': 'demeterMap.indicators.diseaseSuspicion',
+                                    'Sospecha de plaga': 'demeterMap.indicators.pestSuspicion'
+                                };
+                                
+                                const translationKey = labelMap[label] || label;
+                                const translatedLabel = t(translationKey, label);
+                                
+                                return (
+                                    <ul key={index} className='indicador-container'>
+                                        <li>
+                                            <strong>{translatedLabel}:</strong>
+                                        </li>
+                                        <li>{value}</li>
+                                    </ul>
+                                );
+                            })}
                         </ul>
                     </div>
                 ) : (
-                    <p>Posicione el cursor sobre una zona</p>
+                    <p>{t('demeterMap.positionCursor')}</p>
                 )}
                 <div className='actions-container'>
-                <button className='action-button' onClick={openModal}>Recomendaciones</button>
+                <button className='action-button' onClick={openModal}>{t('demeterMap.recommendations')}</button>
                 <button
                     className='action-button'
                     onClick={() => {
-                        alert("Se está regando la zona. Coloque un sensor en esta zona si quiere actualizar los indicadores.");
+                        alert(t('demeterMap.wateringAlert'));
                     }}
                 >
-                    Regar Zona
+                    {t('demeterMap.waterZone')}
                 </button>
                 <button
                     className='action-button'
                     onClick={() => {
-                        alert("Funcion aún no implementada.");
+                        alert(t('demeterMap.notImplemented'));
                     }}
                 >
-                    Datos estadísticos
+                    {t('demeterMap.statisticalData')}
                 </button>
                 </div>
             </div>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
-                contentLabel="Recomendaciones"
+                contentLabel={t('demeterMap.recommendations')}
                 className="modal"
                 overlayClassName="modal-overlay"
             >
-                <h2>Recomendaciones</h2>
+                <h2>{t('demeterMap.recommendations')}</h2>
                 {activeZone ? (
                     <div className="modal-content">
                         <h3>{activeZone.title}</h3>
@@ -381,22 +412,22 @@ function DemeterDemo() {
                         ))}
                     </div>
                 ) : (
-                    <p>No hay datos disponibles para mostrar.</p>
+                    <p>{t('demeterMap.noData')}</p>
                 )}
-                <button onClick={closeModal} className='modal-close-button'>Cerrar</button>
+                <button onClick={closeModal} className='modal-close-button'>{t('demeterMap.close')}</button>
             </Modal>
             <Modal
                 isOpen={sensorModalIsOpen}
                 onRequestClose={closeModal}
-                contentLabel="Nivel de Batería del Sensor"
+                contentLabel={t('demeterMap.sensorBattery')}
                 className="modal"
                 overlayClassName="modal-overlay"
             >
-                <h2>Nivel de Batería del Sensor</h2>
-                <p>El nivel de batería del sensor es: {sensorBatteryLevel}</p>
-                <p>Coloque el sensor en un lugar soleado para completar la carga.</p>
-                <p>Recuerde desplazar el sensor si quiere actualizar los datos de una zona.</p>
-                <button onClick={closeModal} className='modal-close-button'>Cerrar</button>
+                <h2>{t('demeterMap.sensorBattery')}</h2>
+                <p>{t('demeterMap.batteryLevel', { level: sensorBatteryLevel })}</p>
+                <p>{t('demeterMap.chargeInstructions')}</p>
+                <p>{t('demeterMap.sensorInstructions')}</p>
+                <button onClick={closeModal} className='modal-close-button'>{t('demeterMap.close')}</button>
             </Modal>
         </div>
     );

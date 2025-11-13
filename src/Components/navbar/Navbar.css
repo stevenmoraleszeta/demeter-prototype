@@ -1,7 +1,7 @@
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     background-color: var(--dark-green);
     color: var(--light-color);
     position: fixed;
@@ -10,8 +10,12 @@
     width: 100%;
     z-index: 10000;
     opacity: 95%;
-    height: 5vh;
+    height: 45px;
     font-weight: 500;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .navbar-menu {
@@ -19,4 +23,119 @@
     display: flex;
     margin: 0;
     padding: 0;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.navbar-menu li {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-menu li a {
+    color: var(--light-color);
+    text-decoration: none;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.navbar-menu li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.language-switcher {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.lang-button {
+    background-color: transparent;
+    border: 1px solid var(--light-color);
+    color: var(--light-color);
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 38px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    margin-bottom: 0;
+    margin: 0;
+}
+
+.lang-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.lang-button.active {
+    background-color: var(--light-color);
+    color: var(--dark-green);
+    border-color: var(--light-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 0.75rem;
+        height: 42px;
+    }
+    
+    .navbar-menu {
+        gap: 0.25rem;
+    }
+    
+    .navbar-menu li a {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .lang-button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.75rem;
+        min-width: 35px;
+        height: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0 0.5rem;
+        height: 40px;
+    }
+    
+    .navbar-menu {
+        gap: 0.2rem;
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .navbar-menu li a {
+        padding: 0.25rem 0.4rem;
+        font-size: 0.75rem;
+    }
+    
+    .lang-button {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.7rem;
+        min-width: 32px;
+        height: 24px;
+    }
 }
