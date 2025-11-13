@@ -29,6 +29,7 @@ The essence of this project goes beyond demonstrating technical complexity. Rath
 - 🗺️ **Farm Management System** - Interactive map visualization with zone-based monitoring
 - 📊 **Real-time Data Collection** - Sensor integration for temperature, humidity, and nutrient levels
 - 🤖 **AI-Powered Chatbot** - Agricultural guidance and recommendations (Designed for ChatGPT integration)
+- 🌍 **Multi-language Support** - Full internationalization with English and Spanish translations
 - 📱 **Responsive Design** - Modern, user-friendly interface accessible on all devices
 - 🌱 **Sustainable Practices** - Tools to minimize environmental impact and promote eco-friendly farming
 
@@ -43,6 +44,12 @@ The essence of this project goes beyond demonstrating technical complexity. Rath
 - **React Icons** 5.2.1 - Icon library
 - **Axios** 1.7.3 - HTTP client
 - **CSS3** - Styling and animations
+
+### Internationalization
+- **i18next** 25.6.2 - Internationalization framework
+- **react-i18next** 16.3.3 - React bindings for i18next
+- **i18next-browser-languagedetector** 8.2.0 - Automatic language detection
+- Supports **English** and **Spanish** languages
 
 ### AI & Integration
 - **OpenAI API** 4.54.0 - AI chatbot integration (planned)
@@ -150,6 +157,13 @@ demeter-prototype/
 1. Navigate to `/profile` to view developer information
 2. Learn more about the project creator and their background
 
+### Language Selection
+
+1. The application automatically detects your browser language
+2. Language preference is saved in localStorage
+3. Currently supports English (en) and Spanish (es)
+4. Language can be changed through the navigation interface
+
 ---
 
 ## 🚢 Deployment
@@ -252,7 +266,7 @@ For full license details, see [LICENSE](LICENSE) file.
 - [ ] Database integration for farm data persistence
 - [ ] Mobile application development
 - [ ] Advanced analytics and reporting
-- [ ] Multi-language support
+- [x] Multi-language support (English & Spanish)
 - [ ] Integration with IoT sensor devices
 
 ---
