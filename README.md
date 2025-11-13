@@ -18,6 +18,12 @@
 
 **Deméter** is an advanced agricultural technology platform designed to transform farming through automation, data collection, and intelligent management systems. The platform empowers farmers with real-time monitoring, AI-powered insights, and comprehensive farm management tools to optimize crop production, reduce resource consumption, and promote sustainable agricultural practices.
 
+> **Note:** This project was presented in 2024 as a prototype at a Nestlé innovation contest hackathon, demonstrating the potential of technology-driven solutions for sustainable agriculture.
+
+### Project Philosophy
+
+The essence of this project goes beyond demonstrating technical complexity. Rather, it represents one of many project ideas and prototype initiatives I have developed over the years. As a natural creative leader, I am ambitious, tenacious, organized, and passionate about acquiring and sharing knowledge. This project serves as a testament to my continuous pursuit of innovation and my commitment to transforming ideas into tangible solutions that can make a meaningful impact.
+
 ### Key Features
 
 - 🗺️ **Farm Management System** - Interactive map visualization with zone-based monitoring

@@ -32,6 +32,23 @@ function LandingPage() {
                 <h2 className="demeter-info-description">Deméter es un sistema avanzado que transforma la agricultura mediante tecnología y automatización. Optimiza la producción alimentaria con dispositivos de recolección de datos y sistemas automatizados. Mi objetivo es proporcionar alimentos de alta calidad, promoviendo prácticas agrícolas sostenibles y apoyando a la comunidad agrícola. Deméter minimiza el uso de recursos naturales, reduce la huella de carbono y protege la biodiversidad, mejorando la eficiencia y evitando la contaminación. Empoderamos a los agricultores locales con acceso a tecnologías avanzadas y datos precisos, promoviendo la equidad y el desarrollo económico. Con Deméter, la agricultura del futuro es verde, justa y próspera.</h2>
             </section>
 
+            <section className="project-context-section">
+                <div className="context-card">
+                    <div className="context-icon">📌</div>
+                    <div className="context-content">
+                        <h3 className="context-title">Project Context</h3>
+                        <p className="context-text">This project was presented in 2024 as a prototype at a <strong>Nestlé innovation contest hackathon</strong>, demonstrating the potential of technology-driven solutions for sustainable agriculture.</p>
+                    </div>
+                </div>
+                <div className="context-card philosophy-card">
+                    <div className="context-icon">💡</div>
+                    <div className="context-content">
+                        <h3 className="context-title">Project Philosophy</h3>
+                        <p className="context-text">The essence of this project goes beyond demonstrating technical complexity. Rather, it represents one of many project ideas and prototype initiatives I have developed over the years. As a natural creative leader, I am ambitious, tenacious, organized, and passionate about acquiring and sharing knowledge. This project serves as a testament to my continuous pursuit of innovation and my commitment to transforming ideas into tangible solutions that can make a meaningful impact.</p>
+                    </div>
+                </div>
+            </section>
+
             <section className="devices-container">
                 <div className="device demeter-sensor" onClick={() => openModal('El dispositivo sensor móvil, es un bloque fácil de desplazar que permite recolectar datos precisos sobre humedad, temperatura, nutrientes, enfermedades y plagas. Estos datos ayudan a tomar decisiones informadas para mejorar la salud y productividad de los cultivos.', require('../../Assets/Img/dispositivoSensor.png'))}>
                     <h2>Dispositivo Sensor</h2>

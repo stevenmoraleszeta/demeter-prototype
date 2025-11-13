@@ -97,7 +97,7 @@ function CanvasModel() {
                 <div className="content">
                     <h2>Socios Clave</h2>
                     <ul>
-                        <li><strong>Nestle:</strong> Inversión del capital semilla.</li>
+                        <li><strong>Nestlé:</strong> Seed capital investment. This project was presented as a prototype at the 2024 Nestlé innovation contest hackathon.</li>
                         <li><strong>Proveedores de Tecnología Ecológica:</strong> Empresas que suministran materiales y tecnologías para prácticas agrícolas sostenibles.</li>
                         <li><strong>Organizaciones Ambientales:</strong> Colaboración para validar las prácticas y promover la adopción de tecnologías verdes.</li>
                         <li><strong>Instituciones Académicas:</strong> Investigación y desarrollo conjunto para innovaciones en agricultura sostenible.</li>

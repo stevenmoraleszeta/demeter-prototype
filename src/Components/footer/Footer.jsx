@@ -5,7 +5,7 @@ import './Footer.css';
 function Footer() {
     return (
         <footer className="app-footer">
-            <p>&copy; {new Date().getFullYear()} Deméter - Todos los derechos reservados - Steven Morales Fallas</p>
+            <p>&copy; 2024 Deméter - Todos los derechos reservados - Steven Morales Fallas</p>
         </footer>
     )
 }
