@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 import '../../App.css';
 import './DemeterMenu.css';
@@ -9,11 +10,12 @@ import { FaMap, FaTasks, FaBoxes, FaUser, FaChalkboardTeacher, FaLeaf, FaBrain, 
 Modal.setAppElement('#root');
 
 function DemeterMenu() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
 
-    const handleButtonClick = (path, message) => {
+    const handleButtonClick = (path, messageKey) => {
         if (path === 'mapa') {
             navigate(`/demeter/map`);
         } else if (path === 'ai') {
@@ -21,7 +23,7 @@ function DemeterMenu() {
         } else if (path === 'tutorial') {
             window.open('https://youtu.be/QOyhXv3qfaI?si=eUaVVCOc5vqhWb7d', '_blank');
         } else {
-            setModalMessage(message);
+            setModalMessage(t(messageKey));
             setShowModal(true);
         }
     };
@@ -36,51 +38,51 @@ function DemeterMenu() {
             <div className="demeter-menu">
                 <div className="menu-button" onClick={() => handleButtonClick('mapa')}>
                     <FaMap className="menu-icon" />
-                    <div className="menu-text">Mapa de Finca</div>
+                    <div className="menu-text">{t('demeterMenu.farmMap')}</div>
                 </div>
                 <div className="menu-button" onClick={() => handleButtonClick('ai')}>
                     <FaBrain className="menu-icon" />
-                    <div className="menu-text">Inteligencia artificial</div>
+                    <div className="menu-text">{t('demeterMenu.artificialIntelligence')}</div>
                 </div>
                 <div className="menu-button" onClick={() => handleButtonClick('tutorial')}>
                     <FaBook className="menu-icon" />
-                    <div className="menu-text">Tutorial Prototipo</div>
+                    <div className="menu-text">{t('demeterMenu.tutorial')}</div>
                 </div>
-                <div className="menu-button" onClick={() => handleButtonClick('tareas', 'Próximamente podrás gestionar las tareas de la finca desde aquí. Pruebe el Mapa de Finca o la Inteligencia Artificial.')}>
+                <div className="menu-button" onClick={() => handleButtonClick('tareas', 'demeterMenu.modal.tasks')}>
                     <FaTasks className="menu-icon" />
-                    <div className="menu-text">Tareas</div>
+                    <div className="menu-text">{t('demeterMenu.tasks')}</div>
                 </div>
-                <div className="menu-button" onClick={() => handleButtonClick('inventario', 'Gestiona el inventario de la finca de forma sencilla. Próximamente disponible. Pruebe el Mapa de Finca o la Inteligencia Artificial.')}>
+                <div className="menu-button" onClick={() => handleButtonClick('inventario', 'demeterMenu.modal.inventory')}>
                     <FaBoxes className="menu-icon" />
-                    <div className="menu-text">Inventario</div>
+                    <div className="menu-text">{t('demeterMenu.inventory')}</div>
                 </div>
-                <div className="menu-button" onClick={() => handleButtonClick('personal', 'Gestiona tu personal desde esta sección. Disponible próximamente. Pruebe el Mapa de Finca o la Inteligencia Artificial.')}>
+                <div className="menu-button" onClick={() => handleButtonClick('personal', 'demeterMenu.modal.personnel')}>
                     <FaUser className="menu-icon" />
-                    <div className="menu-text">Personal</div>
+                    <div className="menu-text">{t('demeterMenu.personnel')}</div>
                 </div>
-                <div className="menu-button" onClick={() => handleButtonClick('capacitaciones', 'Proximamente se mostrarán capacitaciones en temas agrícolas y ecológicos en esta sección. Pruebe el Mapa de Finca o la Inteligencia Artificial.')}>
+                <div className="menu-button" onClick={() => handleButtonClick('capacitaciones', 'demeterMenu.modal.training')}>
                     <FaChalkboardTeacher className="menu-icon" />
-                    <div className="menu-text">Capacitaciones</div>
+                    <div className="menu-text">{t('demeterMenu.training')}</div>
                 </div>
-                <div className="menu-button" onClick={() => handleButtonClick('recursos-ecologicos', 'Acá se podrá acceder a recursos ecológicos para tu finca, además de recetas y tutoriales para la creación de los mismos; como agroquímicos verdes. Pruebe el Mapa de Finca o la Inteligencia Artificial.')}>
+                <div className="menu-button" onClick={() => handleButtonClick('recursos-ecologicos', 'demeterMenu.modal.ecologicalResources')}>
                     <FaLeaf className="menu-icon" />
-                    <div className="menu-text">Recursos Ecológicos</div>
+                    <div className="menu-text">{t('demeterMenu.ecologicalResources')}</div>
                 </div>
-                <div className="menu-button" onClick={() => handleButtonClick('', 'Otras funcionalidades estarán disponibles próximamente. Pruebe el Mapa de Finca o la Inteligencia Artificial.')}>
+                <div className="menu-button" onClick={() => handleButtonClick('', 'demeterMenu.modal.others')}>
                     <FaCircle className="menu-icon" />
-                    <div className="menu-text">Otros</div>
+                    <div className="menu-text">{t('demeterMenu.others')}</div>
                 </div>
 
                 <Modal
                     isOpen={showModal}
                     onRequestClose={closeModal}
-                    contentLabel="Información de funcionalidad"
+                    contentLabel={t('demeterMenu.modal.title')}
                     className="modal"
                     overlayClassName="modal-overlay"
                 >
-                    <h2>Funcionalidad Próxima</h2>
+                    <h2>{t('demeterMenu.modal.title')}</h2>
                     <p>{modalMessage}</p>
-                    <button onClick={closeModal}>Cerrar</button>
+                    <button onClick={closeModal}>{t('demeterMenu.modal.close')}</button>
                 </Modal>
             </div>
         </>

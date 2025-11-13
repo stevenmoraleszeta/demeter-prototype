@@ -1,22 +1,25 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './Profile.css';
 import '../../App.css';
 import profileImage from '../../Assets/Img/StevenMorales.png';
 
 function Profile() {
+    const { t } = useTranslation();
+
     return (
         <div className="profile-container">
             <div className="profile-image">
-                <img src={profileImage} alt="Steven Morales Fallas" />
+                <img src={profileImage} alt={t('profile.name')} />
             </div>
             <div className="profile-info">
-                <h1>Steven Morales Fallas</h1>
-                <b className='roles'>Desarrollador de Software, Diseñador, Profesor y Emprendedor.</b>
+                <h1>{t('profile.name')}</h1>
+                <b className='roles'>{t('profile.roles')}</b>
                 <p>
-                Me destaco por mi alta creatividad y habilidades excepcionales, impulsado por una profunda pasión por la innovación y la mejora continua del mundo. Mi entusiasmo se extiende a diversas áreas de STEAM, donde siempre busco nuevas formas de crear y desarrollar. Si tuviera que describirme en seis palabras, serían: innovador, adaptable, ambicioso, autodidacta, eficiente e ingenioso.
+                    {t('profile.description')}
                 </p>
                 <p className='quote'>
-                "Las personas que están lo suficientemente locas como para pensar que pueden cambiar el mundo son las que lo hacen" Steve Jobs
+                    {t('profile.quote')}
                 </p>
             </div>
         </div>
