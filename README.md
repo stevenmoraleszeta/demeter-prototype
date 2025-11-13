@@ -83,7 +83,7 @@
 
 ### Available Scripts
 
-- `npm start` - Runs the app in development mode
+- `npm start` or `npm run dev` - Runs the app in development mode
 - `npm test` - Launches the test runner
 - `npm run build` - Builds the app for production
 - `npm run eject` - Ejects from Create React App (irreversible)
@@ -117,6 +117,7 @@ demeter-prototype/
 ├── .gitignore             # Git ignore rules
 ├── LICENSE                # License file
 ├── package.json           # Dependencies and scripts
+├── vercel.json            # Vercel deployment configuration
 └── README.md              # Project documentation
 ```
 
@@ -149,11 +150,13 @@ demeter-prototype/
 
 ### Recommended Platforms
 
-- **Vercel** - Recommended for React applications
-  ```bash
-  npm install -g vercel
-  vercel
-  ```
+- **Vercel** - Recommended for React applications (✅ Configured)
+  - The project includes `vercel.json` with proper routing configuration
+  - Simply connect your GitHub repository to Vercel
+  - Vercel will automatically detect the build settings
+  - Build command: `npm run build`
+  - Output directory: `build`
+  - Client-side routing is configured automatically
 
 - **Netlify** - Easy deployment with continuous integration
   ```bash
