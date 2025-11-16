@@ -74,7 +74,9 @@
     "zone": "Zona",
     "positionCursor": "Posicione el cursor sobre una zona",
     "idealIndices": "Los indices ideales se adaptan según el tipo de plantación.",
-    "recommendations": "Recomendaciones",
+    "labels": {
+      "recommendations": "Recomendaciones"
+    },
     "waterZone": "Regar Zona",
     "statisticalData": "Datos estadísticos",
     "sensorBattery": "Nivel de Batería del Sensor",
@@ -117,6 +119,51 @@
       "mild": "Leve",
       "moderate": "Moderada",
       "high": "Alta"
+    },
+    "plantingTypes": {
+      "tomatoes": "Tomates",
+      "lettuce": "Lechugas",
+      "peppers": "Pimientos",
+      "carrots": "Zanahorias",
+      "onions": "Cebollas",
+      "zucchini": "Calabacines",
+      "spinach": "Espinacas",
+      "broccoli": "Brócoli"
+    },
+    "recommendations": {
+      "zone1": [
+        "Aplicar fertilizante rico en fósforo para corregir la deficiencia."
+      ],
+      "zone2": [
+        "Aplicar fertilizante rico en nitrógeno y potasio.",
+        "Implementar medidas de control de plagas.",
+        "Revisar plantas enfermas."
+      ],
+      "zone3": [
+        "Reducir la aplicación de fertilizantes ricos en potasio.",
+        "Vigilar y controlar la plaga."
+      ],
+      "zone4": [
+        "Reducir la aplicación de fertilizantes ricos en nitrógeno.",
+        "Aumentar la aplicación de fertilizantes ricos en potasio.",
+        "Revisar y tratar las enfermedades."
+      ],
+      "zone5": [
+        "Aplicar fertilizantes ricos en nitrógeno y fósforo.",
+        "Implementar medidas de control de plagas."
+      ],
+      "zone6": [
+        "Aplicar fertilizante rico en fósforo.",
+        "Vigilar y tratar las enfermedades leves."
+      ],
+      "zone7": [
+        "Aplicar fertilizante rico en nitrógeno y potasio.",
+        "Implementar medidas de control de plagas."
+      ],
+      "zone8": [
+        "Aplicar fertilizante rico en nitrógeno.",
+        "Implementar medidas de control de plagas intensivas."
+      ]
     }
   },
   "demeterAI": {

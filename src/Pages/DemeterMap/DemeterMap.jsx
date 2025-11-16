@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../../App.css';
 import './DemeterMap.css';
@@ -6,245 +6,207 @@ import fincaImagenArriba from '../../Assets/Img/fincaImagenArriba.png';
 import Modal from 'react-modal';
 
 function DemeterDemo() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [activeZone, setActiveZone] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [sensorModalIsOpen, setSensorModalIsOpen] = useState(false);
     const [sensorBatteryLevel] = useState('75%');
 
-    const zones = [
-        {
-            name: 'Zona 1',
-            gridArea: '1 / 1 / 2 / 2',
-            data: {
-                title: 'Zona 1',
-                indicators: [
-                    'Tipo de plantación: Tomates',
-                    'Última fecha y hora de monitoreo: 01-08-2024 10:00 AM',
-                    'Última fecha y hora de riego: 30-07-2024 04:00 PM',
-                    'Temperatura encontrada: 20°C',
-                    'Temperatura ideal: 18-22°C',
-                    'Humedad: 65%',
-                    'Humedad ideal: 60-70%',
-                    'Nitrógeno: 90 ppm',
-                    'Nitrógeno ideal: 100-150 ppm',
-                    'Fósforo: 35 ppm',
-                    'Fósforo ideal: 50-70 ppm',
-                    'Potasio: 160 ppm',
-                    'Potasio ideal: 200-250 ppm',
-                    'Sospecha de enfermedad: Ninguna',
-                    'Sospecha de plaga: Ninguna'
-                ],
-                recommendations: [
-                    'Aplicar fertilizante rico en fósforo para corregir la deficiencia.'
-                ]
+    // Zone data structure with keys instead of hardcoded text
+    // Recalculate when language changes
+    const zones = useMemo(() => {
+        const zonesConfig = [
+            {
+                zoneKey: 'zone1',
+                gridArea: '1 / 1 / 2 / 2',
+                plantingTypeKey: 'tomatoes',
+                lastMonitoring: '01-08-2024 10:00 AM',
+                lastWatering: '30-07-2024 04:00 PM',
+                temperature: 20,
+                idealTempRange: [18, 22],
+                humidity: 65,
+                idealHumidityRange: [60, 70],
+                nitrogen: 90,
+                idealNitrogenRange: [100, 150],
+                phosphorus: 35,
+                idealPhosphorusRange: [50, 70],
+                potassium: 160,
+                idealPotassiumRange: [200, 250],
+                diseaseSuspicion: 'none',
+                pestSuspicion: 'none'
+            },
+            {
+                zoneKey: 'zone2',
+                gridArea: '1 / 2 / 2 / 3',
+                plantingTypeKey: 'lettuce',
+                lastMonitoring: '01-08-2024 11:00 AM',
+                lastWatering: '29-07-2024 06:00 PM',
+                temperature: 22,
+                idealTempRange: [18, 22],
+                humidity: 70,
+                idealHumidityRange: [60, 70],
+                nitrogen: 70,
+                idealNitrogenRange: [50, 80],
+                phosphorus: 40,
+                idealPhosphorusRange: [30, 50],
+                potassium: 100,
+                idealPotassiumRange: [100, 150],
+                diseaseSuspicion: 'mild',
+                pestSuspicion: 'high'
+            },
+            {
+                zoneKey: 'zone3',
+                gridArea: '1 / 3 / 2 / 4',
+                plantingTypeKey: 'peppers',
+                lastMonitoring: '01-08-2024 12:00 PM',
+                lastWatering: '28-07-2024 05:00 PM',
+                temperature: 25,
+                idealTempRange: [20, 25],
+                humidity: 60,
+                idealHumidityRange: [60, 70],
+                nitrogen: 85,
+                idealNitrogenRange: [90, 120],
+                phosphorus: 35,
+                idealPhosphorusRange: [40, 60],
+                potassium: 180,
+                idealPotassiumRange: [150, 200],
+                diseaseSuspicion: 'none',
+                pestSuspicion: 'mild'
+            },
+            {
+                zoneKey: 'zone4',
+                gridArea: '1 / 4 / 2 / 5',
+                plantingTypeKey: 'carrots',
+                lastMonitoring: '01-08-2024 01:00 PM',
+                lastWatering: '27-07-2024 07:00 PM',
+                temperature: 27,
+                idealTempRange: [22, 27],
+                humidity: 55,
+                idealHumidityRange: [60, 70],
+                nitrogen: 100,
+                idealNitrogenRange: [70, 100],
+                phosphorus: 40,
+                idealPhosphorusRange: [30, 50],
+                potassium: 120,
+                idealPotassiumRange: [130, 180],
+                diseaseSuspicion: 'high',
+                pestSuspicion: 'none'
+            },
+            {
+                zoneKey: 'zone5',
+                gridArea: '2 / 1 / 3 / 2',
+                plantingTypeKey: 'onions',
+                lastMonitoring: '02-08-2024 10:00 AM',
+                lastWatering: '01-08-2024 04:00 PM',
+                temperature: 18,
+                idealTempRange: [15, 20],
+                humidity: 75,
+                idealHumidityRange: [60, 70],
+                nitrogen: 60,
+                idealNitrogenRange: [60, 90],
+                phosphorus: 25,
+                idealPhosphorusRange: [20, 40],
+                potassium: 140,
+                idealPotassiumRange: [110, 150],
+                diseaseSuspicion: 'none',
+                pestSuspicion: 'moderate'
+            },
+            {
+                zoneKey: 'zone6',
+                gridArea: '2 / 2 / 3 / 3',
+                plantingTypeKey: 'zucchini',
+                lastMonitoring: '02-08-2024 11:00 AM',
+                lastWatering: '31-07-2024 06:00 PM',
+                temperature: 23,
+                idealTempRange: [20, 25],
+                humidity: 68,
+                idealHumidityRange: [60, 70],
+                nitrogen: 90,
+                idealNitrogenRange: [80, 110],
+                phosphorus: 20,
+                idealPhosphorusRange: [25, 45],
+                potassium: 160,
+                idealPotassiumRange: [140, 180],
+                diseaseSuspicion: 'mild',
+                pestSuspicion: 'none'
+            },
+            {
+                zoneKey: 'zone7',
+                gridArea: '2 / 3 / 3 / 4',
+                plantingTypeKey: 'spinach',
+                lastMonitoring: '02-08-2024 12:00 PM',
+                lastWatering: '30-07-2024 07:00 PM',
+                temperature: 24,
+                idealTempRange: [15, 20],
+                humidity: 70,
+                idealHumidityRange: [60, 70],
+                nitrogen: 65,
+                idealNitrogenRange: [70, 100],
+                phosphorus: 35,
+                idealPhosphorusRange: [30, 50],
+                potassium: 115,
+                idealPotassiumRange: [120, 160],
+                diseaseSuspicion: 'none',
+                pestSuspicion: 'moderate'
+            },
+            {
+                zoneKey: 'zone8',
+                gridArea: '2 / 4 / 3 / 5',
+                plantingTypeKey: 'broccoli',
+                lastMonitoring: '02-08-2024 01:00 PM',
+                lastWatering: '29-07-2024 05:00 PM',
+                temperature: 26,
+                idealTempRange: [20, 25],
+                humidity: 58,
+                idealHumidityRange: [60, 70],
+                nitrogen: 75,
+                idealNitrogenRange: [80, 110],
+                phosphorus: 35,
+                idealPhosphorusRange: [30, 50],
+                potassium: 150,
+                idealPotassiumRange: [130, 170],
+                diseaseSuspicion: 'none',
+                pestSuspicion: 'high'
             }
-        },
-        {
-            name: 'Zona 2',
-            gridArea: '1 / 2 / 2 / 3',
-            data: {
-                title: 'Zona 2',
-                indicators: [
-                    'Tipo de plantación: Lechugas',
-                    'Última fecha y hora de monitoreo: 01-08-2024 11:00 AM',
-                    'Última fecha y hora de riego: 29-07-2024 06:00 PM',
-                    'Temperatura encontrada: 22°C',
-                    'Temperatura ideal: 18-22°C',
-                    'Humedad: 70%',
-                    'Humedad ideal: 60-70%',
-                    'Nitrógeno: 70 ppm',
-                    'Nitrógeno ideal: 50-80 ppm',
-                    'Fósforo: 40 ppm',
-                    'Fósforo ideal: 30-50 ppm',
-                    'Potasio: 100 ppm',
-                    'Potasio ideal: 100-150 ppm',
-                    'Sospecha de enfermedad: Leve',
-                    'Sospecha de plaga: Alta'
-                ],
-                recommendations: [
-                    'Aplicar fertilizante rico en nitrógeno y potasio.',
-                    'Implementar medidas de control de plagas.',
-                    'Revisar plantas enfermas.'
-                ]
-            }
-        },
-        {
-            name: 'Zona 3',
-            gridArea: '1 / 3 / 2 / 4',
-            data: {
-                title: 'Zona 3',
-                indicators: [
-                    'Tipo de plantación: Pimientos',
-                    'Última fecha y hora de monitoreo: 01-08-2024 12:00 PM',
-                    'Última fecha y hora de riego: 28-07-2024 05:00 PM',
-                    'Temperatura encontrada: 25°C',
-                    'Temperatura ideal: 20-25°C',
-                    'Humedad: 60%',
-                    'Humedad ideal: 60-70%',
-                    'Nitrógeno: 85 ppm',
-                    'Nitrógeno ideal: 90-120 ppm',
-                    'Fósforo: 35 ppm',
-                    'Fósforo ideal: 40-60 ppm',
-                    'Potasio: 180 ppm',
-                    'Potasio ideal: 150-200 ppm',
-                    'Sospecha de enfermedad: Ninguna',
-                    'Sospecha de plaga: Leve'
-                ],
-                recommendations: [
-                    'Reducir la aplicación de fertilizantes ricos en potasio.',
-                    'Vigilar y controlar la plaga.'
-                ]
-            }
-        },
-        {
-            name: 'Zona 4',
-            gridArea: '1 / 4 / 2 / 5',
-            data: {
-                title: 'Zona 4',
-                indicators: [
-                    'Tipo de plantación: Zanahorias',
-                    'Última fecha y hora de monitoreo: 01-08-2024 01:00 PM',
-                    'Última fecha y hora de riego: 27-07-2024 07:00 PM',
-                    'Temperatura encontrada: 27°C',
-                    'Temperatura ideal: 22-27°C',
-                    'Humedad: 55%',
-                    'Humedad ideal: 60-70%',
-                    'Nitrógeno: 100 ppm',
-                    'Nitrógeno ideal: 70-100 ppm',
-                    'Fósforo: 40 ppm',
-                    'Fósforo ideal: 30-50 ppm',
-                    'Potasio: 120 ppm',
-                    'Potasio ideal: 130-180 ppm',
-                    'Sospecha de enfermedad: Alta',
-                    'Sospecha de plaga: Ninguna'
-                ],
-                recommendations: [
-                    'Reducir la aplicación de fertilizantes ricos en nitrógeno.',
-                    'Aumentar la aplicación de fertilizantes ricos en potasio.',
-                    'Revisar y tratar las enfermedades.'
-                ]
-            }
-        },
-        {
-            name: 'Zona 5',
-            gridArea: '2 / 1 / 3 / 2',
-            data: {
-                title: 'Zona 5',
-                indicators: [
-                    'Tipo de plantación: Cebollas',
-                    'Última fecha y hora de monitoreo: 02-08-2024 10:00 AM',
-                    'Última fecha y hora de riego: 01-08-2024 04:00 PM',
-                    'Temperatura encontrada: 18°C',
-                    'Temperatura ideal: 15-20°C',
-                    'Humedad: 75%',
-                    'Humedad ideal: 60-70%',
-                    'Nitrógeno: 60 ppm',
-                    'Nitrógeno ideal: 60-90 ppm',
-                    'Fósforo: 25 ppm',
-                    'Fósforo ideal: 20-40 ppm',
-                    'Potasio: 140 ppm',
-                    'Potasio ideal: 110-150 ppm',
-                    'Sospecha de enfermedad: Ninguna',
-                    'Sospecha de plaga: Moderada'
-                ],
-                recommendations: [
-                    'Aplicar fertilizantes ricos en nitrógeno y fósforo.',
-                    'Implementar medidas de control de plagas.'
-                ]
-            }
-        },
-        {
-            name: 'Zona 6',
-            gridArea: '2 / 2 / 3 / 3',
-            data: {
-                title: 'Zona 6',
-                indicators: [
-                    'Tipo de plantación: Calabacines',
-                    'Última fecha y hora de monitoreo: 02-08-2024 11:00 AM',
-                    'Última fecha y hora de riego: 31-07-2024 06:00 PM',
-                    'Temperatura encontrada: 23°C',
-                    'Temperatura ideal: 20-25°C',
-                    'Humedad: 68%',
-                    'Humedad ideal: 60-70%',
-                    'Nitrógeno: 90 ppm',
-                    'Nitrógeno ideal: 80-110 ppm',
-                    'Fósforo: 20 ppm',
-                    'Fósforo ideal: 25-45 ppm',
-                    'Potasio: 160 ppm',
-                    'Potasio ideal: 140-180 ppm',
-                    'Sospecha de enfermedad: Leve',
-                    'Sospecha de plaga: Ninguna'
-                ],
-                recommendations: [
-                    'Aplicar fertilizante rico en fósforo.',
-                    'Vigilar y tratar las enfermedades leves.'
-                ]
-            }
-        },
-        {
-            name: 'Zona 7',
-            gridArea: '2 / 3 / 3 / 4',
-            data: {
-                title: 'Zona 7',
-                indicators: [
-                    'Tipo de plantación: Espinacas',
-                    'Última fecha y hora de monitoreo: 02-08-2024 12:00 PM',
-                    'Última fecha y hora de riego: 30-07-2024 07:00 PM',
-                    'Temperatura encontrada: 24°C',
-                    'Temperatura ideal: 15-20°C',
-                    'Humedad: 70%',
-                    'Humedad ideal: 60-70%',
-                    'Nitrógeno: 65 ppm',
-                    'Nitrógeno ideal: 70-100 ppm',
-                    'Fósforo: 35 ppm',
-                    'Fósforo ideal: 30-50 ppm',
-                    'Potasio: 115 ppm',
-                    'Potasio ideal: 120-160 ppm',
-                    'Sospecha de enfermedad: Ninguna',
-                    'Sospecha de plaga: Moderada'
-                ],
-                recommendations: [
-                    'Aplicar fertilizante rico en nitrógeno y potasio.',
-                    'Implementar medidas de control de plagas.'
-                ]
-            }
-        },
-        {
-            name: 'Zona 8',
-            gridArea: '2 / 4 / 3 / 5',
-            data: {
-                title: 'Zona 8',
-                indicators: [
-                    'Tipo de plantación: Brócoli',
-                    'Última fecha y hora de monitoreo: 02-08-2024 01:00 PM',
-                    'Última fecha y hora de riego: 29-07-2024 05:00 PM',
-                    'Temperatura encontrada: 26°C',
-                    'Temperatura ideal: 20-25°C',
-                    'Humedad: 58%',
-                    'Humedad ideal: 60-70%',
-                    'Nitrógeno: 75 ppm',
-                    'Nitrógeno ideal: 80-110 ppm',
-                    'Fósforo: 35 ppm',
-                    'Fósforo ideal: 30-50 ppm',
-                    'Potasio: 150 ppm',
-                    'Potasio ideal: 130-170 ppm',
-                    'Sospecha de enfermedad: Ninguna',
-                    'Sospecha de plaga: Alta'
-                ],
-                recommendations: [
-                    'Aplicar fertilizante rico en nitrógeno.',
-                    'Implementar medidas de control de plagas intensivas.'
-                ]
-            }
-        }
-    ];
+        ];
 
-    const determineZoneState = (indicators) => {
-        const temp = parseInt(indicators.find(ind => ind.includes('Temperatura encontrada')).split(': ')[1]);
-        const idealTempRange = indicators.find(ind => ind.includes('Temperatura ideal')).split(': ')[1].split('-').map(Number);
-        const humidity = parseInt(indicators.find(ind => ind.includes('Humedad')).split(': ')[1]);
-        const idealHumidityRange = [40, 60]; // Ejemplo de rango ideal
+        return zonesConfig.map(config => {
+            const zoneName = t(`demeterMap.zones.${config.zoneKey}`);
+            const plantingType = t(`demeterMap.plantingTypes.${config.plantingTypeKey}`);
+            
+            return {
+                name: zoneName,
+                zoneKey: config.zoneKey,
+                gridArea: config.gridArea,
+                data: {
+                    title: zoneName,
+                    zoneKey: config.zoneKey,
+                    plantingTypeKey: config.plantingTypeKey,
+                    plantingType: plantingType,
+                    lastMonitoring: config.lastMonitoring,
+                    lastWatering: config.lastWatering,
+                    temperature: config.temperature,
+                    idealTempRange: config.idealTempRange,
+                    humidity: config.humidity,
+                    idealHumidityRange: config.idealHumidityRange,
+                    nitrogen: config.nitrogen,
+                    idealNitrogenRange: config.idealNitrogenRange,
+                    phosphorus: config.phosphorus,
+                    idealPhosphorusRange: config.idealPhosphorusRange,
+                    potassium: config.potassium,
+                    idealPotassiumRange: config.idealPotassiumRange,
+                    diseaseSuspicion: config.diseaseSuspicion,
+                    pestSuspicion: config.pestSuspicion
+                }
+            };
+        });
+    }, [t, i18n.language]);
+
+    const determineZoneState = (zoneData) => {
+        const temp = zoneData.temperature;
+        const idealTempRange = zoneData.idealTempRange;
+        const humidity = zoneData.humidity;
+        const idealHumidityRange = zoneData.idealHumidityRange;
 
         // Definir márgenes para estado amarillo
         const tempMargin = 2; // Rango de margen para temperatura en estado amarillo
@@ -274,7 +236,7 @@ function DemeterDemo() {
             return gridX >= colStart && gridX < colEnd && gridY >= rowStart && gridY < rowEnd;
         });
 
-        setActiveZone(data ? { ...data.data, state: determineZoneState(data.data.indicators) } : null);
+        setActiveZone(data ? { ...data.data, state: determineZoneState(data.data) } : null);
     };
 
     const openModal = () => {
@@ -295,7 +257,7 @@ function DemeterDemo() {
             <div className="grid-container" onMouseMove={handleMouseMove}>
                 <img
                     src={fincaImagenArriba}
-                    alt="Mapa de Finca"
+                    alt={t('demeterMenu.farmMap')}
                     className="demo-image"
                 />
                 {zones.map((zone, index) => (
@@ -335,49 +297,73 @@ function DemeterDemo() {
                         <h4>{activeZone.title}</h4>
                         <p>{t('demeterMap.idealIndices')}</p>
                         <ul>
-                            {activeZone.indicators.map((item, index) => {
-                                const parts = item.split(':');
-                                const label = parts[0].trim();
-                                const value = parts.slice(1).join(':').trim();
-                                
-                                // Map Spanish labels to translation keys
-                                const labelMap = {
-                                    'Tipo de plantación': 'demeterMap.indicators.plantingType',
-                                    'Última fecha y hora de monitoreo': 'demeterMap.indicators.lastMonitoring',
-                                    'Última fecha y hora de riego': 'demeterMap.indicators.lastWatering',
-                                    'Temperatura encontrada': 'demeterMap.indicators.temperatureFound',
-                                    'Temperatura ideal': 'demeterMap.indicators.idealTemperature',
-                                    'Humedad': 'demeterMap.indicators.humidity',
-                                    'Humedad ideal': 'demeterMap.indicators.idealHumidity',
-                                    'Nitrógeno': 'demeterMap.indicators.nitrogen',
-                                    'Nitrógeno ideal': 'demeterMap.indicators.idealNitrogen',
-                                    'Fósforo': 'demeterMap.indicators.phosphorus',
-                                    'Fósforo ideal': 'demeterMap.indicators.idealPhosphorus',
-                                    'Potasio': 'demeterMap.indicators.potassium',
-                                    'Potasio ideal': 'demeterMap.indicators.idealPotassium',
-                                    'Sospecha de enfermedad': 'demeterMap.indicators.diseaseSuspicion',
-                                    'Sospecha de plaga': 'demeterMap.indicators.pestSuspicion'
-                                };
-                                
-                                const translationKey = labelMap[label] || label;
-                                const translatedLabel = t(translationKey, label);
-                                
-                                return (
-                                    <ul key={index} className='indicador-container'>
-                                        <li>
-                                            <strong>{translatedLabel}:</strong>
-                                        </li>
-                                        <li>{value}</li>
-                                    </ul>
-                                );
-                            })}
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.plantingType')}:</strong></li>
+                                <li>{activeZone.plantingType}</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.lastMonitoring')}:</strong></li>
+                                <li>{activeZone.lastMonitoring}</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.lastWatering')}:</strong></li>
+                                <li>{activeZone.lastWatering}</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.temperatureFound')}:</strong></li>
+                                <li>{activeZone.temperature}°C</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.idealTemperature')}:</strong></li>
+                                <li>{activeZone.idealTempRange[0]}-{activeZone.idealTempRange[1]}°C</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.humidity')}:</strong></li>
+                                <li>{activeZone.humidity}%</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.idealHumidity')}:</strong></li>
+                                <li>{activeZone.idealHumidityRange[0]}-{activeZone.idealHumidityRange[1]}%</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.nitrogen')}:</strong></li>
+                                <li>{activeZone.nitrogen} ppm</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.idealNitrogen')}:</strong></li>
+                                <li>{activeZone.idealNitrogenRange[0]}-{activeZone.idealNitrogenRange[1]} ppm</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.phosphorus')}:</strong></li>
+                                <li>{activeZone.phosphorus} ppm</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.idealPhosphorus')}:</strong></li>
+                                <li>{activeZone.idealPhosphorusRange[0]}-{activeZone.idealPhosphorusRange[1]} ppm</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.potassium')}:</strong></li>
+                                <li>{activeZone.potassium} ppm</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.idealPotassium')}:</strong></li>
+                                <li>{activeZone.idealPotassiumRange[0]}-{activeZone.idealPotassiumRange[1]} ppm</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.diseaseSuspicion')}:</strong></li>
+                                <li>{t(`demeterMap.values.${activeZone.diseaseSuspicion}`)}</li>
+                            </ul>
+                            <ul className='indicador-container'>
+                                <li><strong>{t('demeterMap.indicators.pestSuspicion')}:</strong></li>
+                                <li>{t(`demeterMap.values.${activeZone.pestSuspicion}`)}</li>
+                            </ul>
                         </ul>
                     </div>
                 ) : (
                     <p>{t('demeterMap.positionCursor')}</p>
                 )}
                 <div className='actions-container'>
-                <button className='action-button' onClick={openModal}>{t('demeterMap.recommendations')}</button>
+                <button className='action-button' onClick={openModal}>{t('demeterMap.labels.recommendations')}</button>
                 <button
                     className='action-button'
                     onClick={() => {
@@ -399,15 +385,15 @@ function DemeterDemo() {
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
-                contentLabel={t('demeterMap.recommendations')}
+                contentLabel={t('demeterMap.labels.recommendations')}
                 className="modal"
                 overlayClassName="modal-overlay"
             >
-                <h2>{t('demeterMap.recommendations')}</h2>
-                {activeZone ? (
+                <h2>{t('demeterMap.labels.recommendations')}</h2>
+                {activeZone && activeZone.zoneKey ? (
                     <div className="modal-content">
                         <h3>{activeZone.title}</h3>
-                        {activeZone.recommendations.map((item, index) => (
+                        {t(`demeterMap.recommendations.${activeZone.zoneKey}`, { returnObjects: true }).map((item, index) => (
                             <p key={index}>{item}</p>
                         ))}
                     </div>

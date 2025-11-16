@@ -74,7 +74,9 @@
     "zone": "Zone",
     "positionCursor": "Position cursor over a zone",
     "idealIndices": "The ideal indices adapt according to the type of plantation.",
-    "recommendations": "Recommendations",
+    "labels": {
+      "recommendations": "Recommendations"
+    },
     "waterZone": "Water Zone",
     "statisticalData": "Statistical Data",
     "sensorBattery": "Sensor Battery Level",
@@ -117,6 +119,51 @@
       "mild": "Mild",
       "moderate": "Moderate",
       "high": "High"
+    },
+    "plantingTypes": {
+      "tomatoes": "Tomatoes",
+      "lettuce": "Lettuce",
+      "peppers": "Peppers",
+      "carrots": "Carrots",
+      "onions": "Onions",
+      "zucchini": "Zucchini",
+      "spinach": "Spinach",
+      "broccoli": "Broccoli"
+    },
+    "recommendations": {
+      "zone1": [
+        "Apply phosphorus-rich fertilizer to correct the deficiency."
+      ],
+      "zone2": [
+        "Apply nitrogen and potassium-rich fertilizer.",
+        "Implement pest control measures.",
+        "Review diseased plants."
+      ],
+      "zone3": [
+        "Reduce application of potassium-rich fertilizers.",
+        "Monitor and control the pest."
+      ],
+      "zone4": [
+        "Reduce application of nitrogen-rich fertilizers.",
+        "Increase application of potassium-rich fertilizers.",
+        "Review and treat diseases."
+      ],
+      "zone5": [
+        "Apply nitrogen and phosphorus-rich fertilizers.",
+        "Implement pest control measures."
+      ],
+      "zone6": [
+        "Apply phosphorus-rich fertilizer.",
+        "Monitor and treat mild diseases."
+      ],
+      "zone7": [
+        "Apply nitrogen and potassium-rich fertilizer.",
+        "Implement pest control measures."
+      ],
+      "zone8": [
+        "Apply nitrogen-rich fertilizer.",
+        "Implement intensive pest control measures."
+      ]
     }
   },
   "demeterAI": {
